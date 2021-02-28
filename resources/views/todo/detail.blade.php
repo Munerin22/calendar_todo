@@ -13,16 +13,19 @@
 <label for="title" class="col-md-4 control-label">■タイトル</label>
 <div class="col-md-6">
 <p>{{ $todo_detail['title'] }}</p>
+<hr>
 </div>
 
 <label for="main" class="col-md-4 control-label">■ToDo</label>
 <div class="col-md-6">
 <p>{{ $todo_detail['main'] }}</p>
+<hr>
 </div>
 
 <label for="delivery" class="col-md-4 control-label">■納期</label>
 <div class="col-md-6" style="padding-top: 8px">
 <p>{{ $todo_detail['delivery'] }}</p>
+<hr>
 </div>
 
 <label for="share" class="col-md-4 control-label">■共有レベル</label>
@@ -30,9 +33,24 @@
 @if ( $todo_detail['share'] == 0)
 <p>個人</p>
 @elseif ( $todo_detail['share'] == 1)
-<p>課内</p>
+<p>部署内</p>
 @else ( $todo_detail['share'] == 2)
 <p>全体</p>
+@endif
+<hr>
+</div>
+
+<label for="delivery" class="col-md-4 control-label">■登録者</label>
+<div class="col-md-6" style="padding-top: 8px">
+<p>{{ $todo_detail['section']['section'] }}：{{ $todo_detail['user']['name'] }}</p>
+<hr>
+</div>
+
+<div class="col-md-6" style="padding-top: 8px">
+@if (Auth::guard()->user())
+@if (Auth::guard()->user()->id == $todo_detail['user_id'])
+<a href="{{route('todo_edit_form', ['id' => $todo_detail['id']])}}">ToDoの編集</a><br>
+@endif
 @endif
 </div>
 

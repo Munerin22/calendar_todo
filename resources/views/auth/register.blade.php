@@ -44,11 +44,11 @@
                             <label for="section" class="col-md-4 control-label">Section</label>
  
                             <div class="col-md-6" style="padding-top: 8px">
-                                <input id="section-p" type="radio" name="section" value="製造部" required >
+                                <input id="section-p" type="radio" name="section" value="1" required >
 								<label for="section-p">製造部</label>/
-                                <input id="section-t" type="radio" name="section" value="技術部">
+                                <input id="section-t" type="radio" name="section" value="2">
 								<label for="section-t">技術部</label>/
-                                <input id="section-g" type="radio" name="section" value="総務部">
+                                <input id="section-g" type="radio" name="section" value="3">
 								<label for="section-g">総務部</label>
 
                                 @if ($errors->has('section'))

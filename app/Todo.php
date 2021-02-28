@@ -9,10 +9,14 @@ class Todo extends Model
 {
     //
 
-	protected $fillable = ['title', 'main', 'delivery', 'share', 'user_id'];
+	protected $fillable = ['title', 'main', 'delivery', 'share', 'user_id', 'section_id'];
 
-	public function todo() {
-			return $this->hasOne('App\User');
+	public function user() {
+			return $this->belongsTo('App\User');
+	}
+
+	public function section() {
+			return $this->belongsTo('App\Section', 'section_id');
 	}
 
 }

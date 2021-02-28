@@ -17,6 +17,7 @@ class CalendarController extends Controller
 
 		$todos = Todo::all();	
 
+		//dd($todos);
 		return view('index', compact('year', 'month', 'dates', 'weekCount', 'todos'));
 		
 	}

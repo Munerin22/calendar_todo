@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTodosTable extends Migration
+class CreateSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,9 @@ class CreateTodosTable extends Migration
      */
     public function up()
     {
-        Schema::create('todos', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-			$table->string('title');
-			$table->string('main');
-			$table->string('delivery');
-			$table->integer('share');
-			$table->integer('user_id');
-			$table->string('section_id');
-			$table->softDeletes();
+			$table->string('section');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ class CreateTodosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('todos');
+        Schema::dropIfExists('sections');
     }
 }

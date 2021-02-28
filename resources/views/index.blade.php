@@ -49,12 +49,27 @@
 <td>
 <div class="text-center">
 {{ $dates[$oneweek + (($week - 1) * 7)]->format('j') }}
-
-<!-- ログインユーザーのToDoを表示 -->
-@foreach ($todos as $todo)
-@if (Auth::guard()->user()->id == $todo['user_id'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-j') == $todo['delivery'])
 <br>
+
+@foreach ($todos as $todo)
+<!-- 全体連絡 -->
+@if (2 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
 <a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+@endif
+
+@if (Auth::guard()->user())
+<!-- ログインユーザーのToDoを表示 -->
+@if (Auth::guard()->user()->id == $todo['user_id'] && 0 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+@elseif (Auth::guard()->user()->position == 1 && Auth::guard()->user()->section == $todo['section_id'] && 0 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+@endif
+
+<!-- 部署内のToDoを表示 -->
+@if (Auth::guard()->user()->section == $todo['section_id'] && 1 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+@endif
+
 @endif
 @endforeach
 

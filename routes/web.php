@@ -23,11 +23,15 @@ Route::get('/todo/detail/{id?}', 'TodoController@detail')->name('todo_detail');
 
 //Userログイン後にアクセス可
 Route::group(['middleware' => 'auth'], function() {;
-		//ToDo処理
+		//ToDo追加
 		Route::get('/todo/add', function () {
 				return view('todo.add');
 		})->name('todo_add_form');
 		Route::post('/todo/add', 'TodoController@add')->name('todo_add');
+
+		//ToDo編集
+		Route::get('/todo/edit/{id?}', 'TodoController@edit')->name('todo_edit_form');
+		Route::post('/todo/edit/update', 'TodoController@update')->name('todo_update');
 
 		Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 });
