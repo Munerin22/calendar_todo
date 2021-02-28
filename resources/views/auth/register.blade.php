@@ -44,12 +44,12 @@
                             <label for="section" class="col-md-4 control-label">Section</label>
  
                             <div class="col-md-6" style="padding-top: 8px">
-                                <input id="section-p" type="radio" name="section" value="Prod" required >
-								<label for="section-p">Production</label>/
-                                <input id="section-t" type="radio" name="section" value="Tech">
-								<label for="section-t">Technical</label>/
-                                <input id="section-g" type="radio" name="section" value="Gene">
-								<label for="section-g">General affairs</label>
+                                <input id="section-p" type="radio" name="section" value="製造部" required >
+								<label for="section-p">製造部</label>/
+                                <input id="section-t" type="radio" name="section" value="技術部">
+								<label for="section-t">技術部</label>/
+                                <input id="section-g" type="radio" name="section" value="総務部">
+								<label for="section-g">総務部</label>
 
                                 @if ($errors->has('section'))
                                     <span class="help-block">
@@ -65,9 +65,9 @@
 
                             <div class="col-md-6">
                                 <input id="position-g" type="radio" name="position" value="0">
-								<label for="position-g">General</label>/
+								<label for="position-g">一般</label>/
                                 <input id="position-l" type="radio" name="position" value="1" required  >
-								<label for="postition-l">Leader</label>
+								<label for="postition-l">リーダー</label>
 
                                 @if ($errors->has('position'))
                                     <span class="help-block">

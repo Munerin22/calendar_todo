@@ -19,3 +19,15 @@ Route::get('/', 'CalendarController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/todo/detail/{id?}', 'TodoController@detail')->name('todo_detail');
+
+//Userログイン後にアクセス可
+Route::group(['middleware' => 'auth'], function() {;
+		//ToDo処理
+		Route::get('/todo/add', function () {
+				return view('todo.add');
+		})->name('todo_add_form');
+		Route::post('/todo/add', 'TodoController@add')->name('todo_add');
+
+		Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+});

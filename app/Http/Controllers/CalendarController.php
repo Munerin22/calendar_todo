@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use Carbon\CarbonImmutable;
 use Carbon\Carbon;
+use App\Todo;
 
 $WEEK_DAYS = ['日', '月', '火', '水', '木', '金', '土'];
 
@@ -12,6 +13,18 @@ class CalendarController extends Controller
 {
     //
 	public function index() {
+		list($dates, $year, $month, $weekCount) = calendarIndex();
+
+		$todos = Todo::all();	
+
+		return view('index', compact('year', 'month', 'dates', 'weekCount', 'todos'));
+		
+	}
+
+}
+
+function calendarIndex() {
+
 		// 今月の日付を取得(取得例：　2020-5)
 		$year = date('Y');
 		$month = date('Y-m');
@@ -45,8 +58,6 @@ class CalendarController extends Controller
 		$year = date('Y');
 		$month = date('m');
 		$weekCount = count($dates)/7;
-		return view('index', compact('year', 'month', 'dates', 'weekCount'));
+		return array($dates, $year, $month, $weekCount);
 		
-	}
-
 }

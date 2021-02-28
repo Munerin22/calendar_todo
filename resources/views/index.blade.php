@@ -8,7 +8,11 @@
 <div class="panel-heading">ToDo</div>
 <div class="panel-body">
 
-<div class="card-body">
+@if (Auth::guard()->user())
+<a href="{{route('todo_add_form')}}">ToDoの追加</a><br>
+@else
+【ログインしてください】
+@endif
 
 <div class="calender">
 <form class="prev-next-form"></form>
@@ -45,6 +49,15 @@
 <td>
 <div class="text-center">
 {{ $dates[$oneweek + (($week - 1) * 7)]->format('j') }}
+
+<!-- ログインユーザーのToDoを表示 -->
+@foreach ($todos as $todo)
+@if (Auth::guard()->user()->id == $todo['user_id'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-j') == $todo['delivery'])
+<br>
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+@endif
+@endforeach
+
 </div>
 </td>
 @endfor
