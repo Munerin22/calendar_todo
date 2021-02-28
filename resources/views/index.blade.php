@@ -1,7 +1,13 @@
-<div class="card">
-<div class="card-header" style="text-align: center;">
-- 予約 -
-</div>
+@extends('layouts.app')
+@section('content')
+
+<div class="container">
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<div class="panel panel-default">
+<div class="panel-heading">ToDo</div>
+<div class="panel-body">
+
 <div class="card-body">
 
 <div class="calender">
@@ -45,5 +51,14 @@
 </tr>
 @endfor
 </table>
+
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+@endsection

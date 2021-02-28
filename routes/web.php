@@ -15,3 +15,7 @@
     //return view('welcome');
 //});
 Route::get('/', 'CalendarController@index')->name('index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
