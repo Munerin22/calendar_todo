@@ -9,10 +9,23 @@
 <div class="panel-body">
 
 @if (Auth::guard()->user())
-<a href="{{route('todo_add_form')}}">ToDoの追加</a><br>
+<a href="{{route('todo_add_form')}}"><center>ToDoの追加</center></a>
 @else
 【ログインしてください】
 @endif
+<br>
+
+ToDoのカテゴリ
+<ul>
+<li><font color=#FF9999>全体</font></li>
+<li><font color=#0099CC>部署内</font></li>
+<li><font color=#99CC66>個人</font></li>
+@if (Auth::guard()->user())
+@if (Auth::guard()->user()->position == 1)
+<li><font color=#000>リーダー</font></li>
+@endif
+@endif
+</ul>
 
 <div class="calender">
 <form class="prev-next-form"></form>
@@ -52,22 +65,28 @@
 <br>
 
 @foreach ($todos as $todo)
-<!-- 全体連絡 -->
+<!-- 全体 -->
 @if (2 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
-<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}"><font color=#FF9999>{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</font></a><br>
 @endif
 
 @if (Auth::guard()->user())
-<!-- ログインユーザーのToDoを表示 -->
-@if (Auth::guard()->user()->id == $todo['user_id'] && 0 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
-<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+<!-- ユーザーのToDoを表示 -->
+@if (Auth::guard()->user()->id == $todo['user_id'] && Auth::guard()->user()->position ==0 && 0 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}"><font color=#99CC66>{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</font></a><br>
+
+<!-- リーダーのToDoを表示 -->
+@elseif (Auth::guard()->user()->id == $todo['user_id'] && Auth::guard()->user()->position ==1 && 0 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}"><font color=#000>{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</font></a><br>
+
+<!-- リーダーはメンバーのToDoも把握できるようにする -->
 @elseif (Auth::guard()->user()->position == 1 && Auth::guard()->user()->section == $todo['section_id'] && 0 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
-<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}"><font color=#99CC66>{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</font></a><br>
 @endif
 
 <!-- 部署内のToDoを表示 -->
 @if (Auth::guard()->user()->section == $todo['section_id'] && 1 == $todo['share'] && $dates[$oneweek + (($week - 1) * 7)]->format('Y-m-d') == $todo['delivery'])
-<a href="{{route('todo_detail', ['id' => $todo['id']])}}">{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</a><br>
+<a href="{{route('todo_detail', ['id' => $todo['id']])}}"><font color=#0099CC>{{ mb_substr($todo['title'], 0, 5, 'UTF-8') }}…</font></a><br>
 @endif
 
 @endif

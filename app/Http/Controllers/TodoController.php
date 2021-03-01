@@ -73,4 +73,20 @@ class TodoController extends Controller
 		}
 		return redirect()->route('index');
 	}
+
+	//ToDoの削除
+	public function delete(Request $request) {
+		$todo_user = Todo::where('id', $request->id)->first();
+
+		if (!$todo_user) {
+			return redirect()->route('index');
+		}
+		$user_id = Auth::guard()->user()->id;
+		if ($user_id !== $todo_user->user_id) {
+			return redirect()->route('index');
+		}
+
+		Todo::where('id', $request->id)->delete();
+		return redirect()->route('index');
+	}
 }

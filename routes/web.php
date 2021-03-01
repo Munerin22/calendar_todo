@@ -32,6 +32,8 @@ Route::group(['middleware' => 'auth'], function() {;
 		//ToDo編集
 		Route::get('/todo/edit/{id?}', 'TodoController@edit')->name('todo_edit_form');
 		Route::post('/todo/edit/update', 'TodoController@update')->name('todo_update');
+		//ToDo削除
+		Route::post('/todo/edit/delete', 'TodoController@delete')->name('todo_delete');
 
 		Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 });

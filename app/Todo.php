@@ -19,4 +19,7 @@ class Todo extends Model
 			return $this->belongsTo('App\Section', 'section_id');
 	}
 
+	use SoftDeletes;
+	protected $dates = ['deleted_at'];
+
 }

@@ -50,6 +50,12 @@
 @if (Auth::guard()->user())
 @if (Auth::guard()->user()->id == $todo_detail['user_id'])
 <a href="{{route('todo_edit_form', ['id' => $todo_detail['id']])}}">ToDoの編集</a><br>
+<form method="POST" action="{{route('todo_delete')}}">
+{{ csrf_field() }}
+<input type="hidden" name="id" value="{{$todo_detail['id']}}">
+<div align="right">
+<input type="submit" value="ToDoの削除" style="background-color:#FFCCCC;border-color:#990000"><div>
+</form>
 @endif
 @endif
 </div>
