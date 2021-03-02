@@ -5,7 +5,11 @@
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
 <div class="panel panel-default">
-<div class="panel-heading">ToDo</div>
+<div class="panel-heading">ToDo
+<div class="text-right">
+<a href="{{route('index')}}">Home</a>
+</div>
+</div>
 <div class="panel-body">
 
 @if (Auth::guard()->user())
@@ -28,11 +32,12 @@ ToDoのカテゴリ
 </ul>
 
 <div class="calender">
-<form class="prev-next-form"></form>
 <table class="table">
 <tr>
 <td colspan="2">
-
+@if ($month - 1 > 0)
+<a href="{{route('other', ['month' => $month-1])}}">＜--{{ $month-1 }}月</a>
+@endif
 </td>
 <th colspan="3">
 <div class="text-center">
@@ -41,7 +46,9 @@ ToDoのカテゴリ
 </th>
 <td colspan="2">
 <div class="text-right">
-
+@if ($month + 1 < 13)
+<a href="{{route('other', ['month' => $month+1])}}">{{ $month+1 }}月--＞</a>
+@endif
 </div>
 </td>
 </tr>

@@ -13,7 +13,8 @@ class CalendarController extends Controller
 {
     //
 	public function index() {
-		list($dates, $year, $month, $weekCount) = calendarIndex();
+		$month_request = 0;
+		list($dates, $year, $month, $weekCount) = calendarIndex($month_request);
 
 		$todos = Todo::all();	
 
@@ -22,13 +23,32 @@ class CalendarController extends Controller
 		
 	}
 
+	public function other($monthInput = null) {
+		//monthが1-12であることを確認
+		if ($monthInput < 1 || $monthInput > 12) {
+			return redirect()->route('index');
+		}
+
+		list($dates, $year, $month, $weekCount) = calendarIndex($monthInput);
+
+		$todos = Todo::all();	
+
+		//dd($todos);
+		return view('index', compact('year', 'month', 'dates', 'weekCount', 'todos'));
+	}
+
 }
 
-function calendarIndex() {
+function calendarIndex($monthInput) {
 
 		// 今月の日付を取得(取得例：　2020-5)
 		$year = date('Y');
-		$month = date('Y-m');
+		if ($monthInput == 0) {
+			$month = date('Y-m');
+			$monthInput = date('m');
+		} else {
+			$month = $year . '-' . $monthInput;
+		}
 
 		// 月初の曜日を数値で取得(0[日]から6[土]の数値)
 		$weekDay = date('w', strtotime($month));
@@ -57,7 +77,7 @@ function calendarIndex() {
 		}
 		
 		$year = date('Y');
-		$month = date('m');
+		$month = $monthInput;
 		$weekCount = count($dates)/7;
 		return array($dates, $year, $month, $weekCount);
 		
