@@ -23,7 +23,7 @@ class TodoController extends Controller
 		$todo_add->fill($todo)->save();
 
 		//Todo追加後
-		return redirect()->route('index');
+		return redirect()->route('index')->with('flash_message', 'ToDoを追加しました');
 	}
 
 	//ToDoの詳細
@@ -71,7 +71,7 @@ class TodoController extends Controller
 			unset($todo['_token']);
 			$todo_update->fill($todo)->save();
 		}
-		return redirect()->route('index');
+		return redirect()->route('index')->with('flash_message', 'ToDoを更新しました');
 	}
 
 	//ToDoの削除

@@ -12,6 +12,12 @@
 </div>
 <div class="panel-body">
 
+@if (Session::has('flash_message'))
+<div style="padding: 5px; margin-bottom: 5px; border: 1px dotted #333333; background-color: #ffffdd;">
+<font color="#44aaee"><center>{{session('flash_message')}}</center></font><br>
+</div>
+@endif
+
 @if (Auth::guard()->user())
 <a href="{{route('todo_add_form')}}"><center>ToDoの追加</center></a>
 @else
