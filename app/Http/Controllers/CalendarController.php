@@ -31,6 +31,11 @@ class CalendarController extends Controller
 			return redirect()->route('index');
 		}
 
+		//yearが±3年であること
+		if ($yearInput < date('Y')-3 || $yearInput > date('Y')+3) {
+			return redirect()->route('index');
+		}
+
 		list($dates, $year, $month, $weekCount) = calendarIndex($yearInput, $monthInput);
 
 		$todos = Todo::all();	
