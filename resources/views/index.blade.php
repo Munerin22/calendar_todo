@@ -42,7 +42,9 @@ ToDoのカテゴリ
 <tr>
 <td colspan="2">
 @if ($month - 1 > 0)
-<a href="{{route('other', ['month' => $month-1])}}">＜--{{ $month-1 }}月</a>
+<a href="{{route('other', ['month' => $month-1, 'year' => $year])}}">＜--{{ $month-1 }}月</a>
+@else
+<a href="{{route('other', ['month' => 12, 'year' => $year-1])}}">＜--{{ $year-1 }}年 12月</a>
 @endif
 </td>
 <th colspan="3">
@@ -53,7 +55,9 @@ ToDoのカテゴリ
 <td colspan="2">
 <div class="text-right">
 @if ($month + 1 < 13)
-<a href="{{route('other', ['month' => $month+1])}}">{{ $month+1 }}月--＞</a>
+<a href="{{route('other', ['month' => $month+1, 'year' => $year])}}">{{ $month+1 }}月--＞</a>
+@else
+<a href="{{route('other', ['month' => 1, 'year' => $year+1])}}">{{ $year+1 }}年 1月--></a>
 @endif
 </div>
 </td>

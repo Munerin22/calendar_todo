@@ -15,7 +15,7 @@
     //return view('welcome');
 //});
 Route::get('/', 'CalendarController@index')->name('index');
-Route::get('/other/{month?}', 'CalendarController@other')->name('other');
+Route::get('/other/{year?}/{month?}', 'CalendarController@other')->name('other');
 
 Auth::routes();
 
